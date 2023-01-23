@@ -1,3 +1,7 @@
+---
+title: Eilinara
+type: City
+---
 Eilinara is an ancient elven city located in the heart of the kingdom's forest and is known for its serene beauty and peaceful atmosphere. It is a center of learning and culture, and many of Albion's greatest scholars and artists call it home. The city is governed by Governor Eilirynn Moonwhisper, an elf appointed by Queen Elwynn Goldheart.
 
 One of the most renowned features of Eilinara are its topiary gardens, which are intricately shaped gardens made up of trees and bushes that are trimmed into different shapes and designs. These gardens are considered masterpieces of horticulture and are a popular attraction among visitors. The gardens are well maintained by the city's skilled gardeners, who are trained in the art of topiary.

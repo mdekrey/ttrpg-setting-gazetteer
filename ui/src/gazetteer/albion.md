@@ -1,3 +1,8 @@
+---
+title: Albion
+type: Country
+---
+
 # Albion
 
 The kingdom of Albion has a rich and storied history, with a strong tradition of honor and military prowess. It was founded many centuries ago by a group of half-elven warriors led by the legendary King Eledor Stormblade, who sought to create a land where their people could live in peace and prosperity. They built a powerful army and successfully defended the kingdom against numerous invasions and threats over the years.

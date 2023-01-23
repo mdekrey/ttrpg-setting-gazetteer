@@ -1,3 +1,7 @@
+---
+title: Ravenhold
+type: City
+---
 Ravenhold is a fortress-city located at the kingdom's northwestern border, at the entrance of the "Ironclad Pass" a strategic mountain pass. It is known for its strong military tradition and strategic importance as it guards the kingdom from invaders. The city is ruled by Governor Aric Silverblade, from House Silverblade, appointed by Queen Elwynn Goldheart.
 
 The city is known for its impressive walls and fortifications, which have been built to withstand a prolonged siege. The walls are made of solid stone and are several meters thick, providing excellent protection against enemy attacks. The city also has a number of towers and bastions that are used to keep watch over the surrounding area, as well as to provide additional defensive capabilities.

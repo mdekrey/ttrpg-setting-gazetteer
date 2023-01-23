@@ -1,0 +1,25 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import { gazetteerFsRoot } from '@/gazetteer';
+
+export async function getStaticPaths() {
+  const articles = await Astro.glob('/gazetteer/*.md');
+  return articles.map(article => {
+    let path = article.file.substring(gazetteerFsRoot.length + 1);
+    path = path.substring(0, path.length - 3);
+    console.log(path);
+    return ({
+      params: { pages: path }, props: { Component: article.Content, title: article.frontmatter.title }
+    });
+  })
+}
+
+const { Component, title } = Astro.props;
+
+---
+
+<Layout title={title}>
+	<main>
+		<Component />
+	</main>
+</Layout>

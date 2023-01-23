@@ -1,3 +1,7 @@
+---
+title: Farcorner
+type: City
+---
 Farcorner is a small hamlet located at the southwest corner of the country's territory, at the border of the West Weald. It is a quiet and peaceful place known for its secluded location. The people of Farcorner are mostly farmers and herders, who live off the land and are known for their hardworking and independent spirit. They are known to keep to themselves, but they are welcoming to outsiders.
 
 The hamlet is composed of a small collection of houses and farms, with a population of around a few dozen people. The houses are simple and sturdy, built to withstand the harsh weather conditions of the region. The people of Farcorner are self-sufficient and rely heavily on their own resources to sustain themselves. They are known for their excellent farming and herding skills, and the high-quality of their produce.
