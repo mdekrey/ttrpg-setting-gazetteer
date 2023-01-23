@@ -1,0 +1,14 @@
+Creating a magical textile is no simple feat. It requires not only an expert level of skill in textile creation, but also a deep understanding of the magic that will be imbued into the fabric. One such textile that has recently caught the attention of the Seelie court is the "Rainbow Silk."
+
+The process of creating Rainbow Silk begins with the carefully selected silkworm silk. The silkworms are fed a diet rich in a specific type of flower that gives the silk its unique iridescent quality. Once the silk is harvested, it is carefully cleaned and spun into thread.
+
+But the magic of Rainbow Silk doesn't come from the silkworms alone. It also requires a unique blend of enchanted dyes. These dyes are made from a combination of crushed gemstones, rare herbs, and Residuum. Residuum is a magical substance that is particularly powerful and versatile, and is used to imbue the dyes with magic. Each dye is imbued with a different type of spell, allowing the fabric to shift in color depending on the angle of the light.
+
+The next step is weaving the thread into fabric. The weaver must be skilled in both traditional textile techniques and in the use of magic. They must use specific patterns and weaves that will allow the magic of the dyes to be fully realized.
+
+Finally, the fabric is enchanted with a spell that makes it resistant to fading or damage. This spell must be carefully crafted and administered by a skilled magician, as even the slightest mistake could ruin the entire piece.
+
+The end result is a breathtaking textile that shimmers and changes color with the light. It's no wonder that the Rainbow Silk has become a favorite among the Seelie court, as it is a true testament to the skill and artistry of those who created it, using the powerful Residuum.
+
+
+

@@ -1,0 +1,9 @@
+Arandur is the capital city of the kingdom of Albion and it is located in the heart of the kingdom. It is a grand city, with impressive architecture, and a bustling market. The city is also home to the royal palace, where the ruling monarch, Queen Elwynn Goldheart, and her court reside.
+
+The city is divided into several distinct districts, each with its own unique character. The Royal District is home to the palace, government buildings, and the houses of the most powerful and influential noble families. The Central District is the commercial and cultural heart of the city, with a variety of shops, theaters, and museums. The Temple District is home to many religious institutions and is considered a sacred place by the citizens of Arandur. The Residential District is where the majority of the city's population lives, it's composed of mainly small houses and apartments.
+
+Arandur has a population of around 50,000 inhabitants, with a majority of Half-elves, around 60%, followed by Humans, around 25%, then elves, dwarves and dragonborn, around 5% each, and gnomes and halflings around 2%.
+
+The four most prominent noble houses in the city are House Goldheart, the ruling house, House Silverblade, a powerful military house, House Starweaver, a wealthy and influential merchant house and House Blossomleaf, a noble house known for their wealth and influence in the agricultural field.
+
+Overall, Arandur is a vibrant and bustling city, with a rich history and culture, and a diverse population. It is a melting pot of different races and cultures, and it's a place where adventurers can find opportunities, wealth and fame.

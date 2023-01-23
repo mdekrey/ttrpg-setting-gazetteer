@@ -1,0 +1,21 @@
+The Pixie Post
+Subscription Renewal Bill
+
+To: Neala Fistbane
+
+Dear Neala,
+
+We hope this letter finds you well. We are writing to inform you that your subscription to The Pixie Post is due for renewal. However, it has come to our attention that you have past-due fees for delivery to the material plane for the previous year. As a result, your total balance due is as follows:
+
+Subscription fee: 50 gold pieces
+Delivery fee (past-due): 75 gold pieces
+Total balance due: 125 gold pieces
+
+Please note that the delivery fee is more than the subscription itself, as delivery to the material plane comes at an additional cost. We apologize for any inconvenience this may cause.
+
+You may drop off your payment at your nearest Saphira location. If you have any questions or concerns, please do not hesitate to contact us.
+
+Thank you for your continued support of The Pixie Post. We look forward to providing you with the latest gossip and news from the Seelie court.
+
+Sincerely,
+The Pixie Post Team
