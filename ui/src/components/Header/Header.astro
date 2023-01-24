@@ -1,0 +1,12 @@
+---
+import SkipToContent from './SkipToContent.astro';
+import SidebarToggle from './SidebarToggle';
+---
+<header class="flex h-24 items-center gap-2 mx-2">
+	<SkipToContent />
+	<h1>Game World Encyclopedia</h1>
+
+	<span class="ml-auto">
+		<SidebarToggle client:idle />
+	</span>
+</header>

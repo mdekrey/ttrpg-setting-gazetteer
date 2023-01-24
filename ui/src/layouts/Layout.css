@@ -1,0 +1,74 @@
+
+/* Firefox */
+* {
+	scrollbar-color: var(--theme-dim-light) transparent;
+}
+
+/* Webkit */
+/* Make scrollbars transparent except for main page scrollbar. */
+::-webkit-scrollbar,
+::-webkit-scrollbar-track {
+	background-color: transparent;
+}
+body::-webkit-scrollbar,
+body::-webkit-scrollbar-track {
+    @apply bg-slate-100;
+}
+
+::-webkit-scrollbar-thumb {
+    @apply bg-slate-300;
+	border: 4px solid transparent;
+	background-clip: content-box;
+	border-radius: 10px;
+}
+
+.sidebar {
+	@apply fixed top-0 bottom-0 p-0 overflow-auto px-4;
+}
+#left-sidebar {
+	/* TODO: see https://github.com/tailwindlabs/tailwindcss/pull/10166 */
+	/* use start-0 instead of left-0 */
+	/* use ps-4 instead of pl-4 */
+	@apply hidden md:block bg-transparent z-10 left-0 md:pl-4 md:pr-4 md:top-24 md:w-72;
+}
+#right-sidebar {
+	/* TODO: see https://github.com/tailwindlabs/tailwindcss/pull/10166 */
+	/* use end-0 instead of right-0 */
+	@apply hidden xl:block top-24 right-0 md:w-72;
+}
+#main-content {
+	@apply flex flex-col h-full min-w-0;
+}
+.main-column {
+	/* TODO: see https://github.com/tailwindlabs/tailwindcss/pull/10166 */
+	/* use ms-72 instead of ml-72 */
+	/* use me-72 instead of mr-72 */
+	@apply md:ml-72 xl:mr-72;
+}
+#article {
+	@apply mx-4 xl:mx-auto xl:max-w-3xl;
+}
+
+/*
+	Try to prevent the rest of the page from scrolling,
+	and the main content from being visible below the overlay.
+	Unfortunately, iOS Safari doesn't currently play well with this
+	and will sometimes still scroll the page even though it shouldn't.
+	Once overscroll-behavior is properly supported, this should be fixed.
+*/
+.mobile-left-sidebar-toggle #left-sidebar {
+	/* TODO: see https://github.com/tailwindlabs/tailwindcss/pull/10166 */
+	/* use end-0 instead of right-0 */
+	@apply not-md:block not-md:top-24 not-md:right-0 not-md:bg-white not-md:overscroll-contain;
+}
+.mobile-right-sidebar-toggle #right-sidebar {
+	/* TODO: see https://github.com/tailwindlabs/tailwindcss/pull/10166 */
+	/* use start-0 instead of left-0 */
+	@apply not-md:block not-md:top-24 not-md:left-0 not-md:bg-white not-md:overscroll-contain;
+}
+.mobile-left-sidebar-toggle, .mobile-right-sidebar-toggle {
+	@apply not-md:overflow-hidden;
+}
+.mobile-left-sidebar-toggle .main-column, .mobile-right-sidebar-toggle .main-column {
+	@apply not-md:invisible;
+}
