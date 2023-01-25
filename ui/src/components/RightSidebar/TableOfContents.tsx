@@ -1,4 +1,5 @@
 import type { TocItem } from '@/util/generateToc';
+import { mobileMenuState } from '@/util/mobile-menu-state';
 import { unescape } from 'html-escaper';
 import React, { useState, useEffect } from 'react';
 
@@ -61,7 +62,7 @@ const TableOfContents = ({ toc }: Props) => {
 	}, []);
 
 	const onLinkClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
-		// TODO: close the menu
+		mobileMenuState.current = null;
 		setCurrentHeading(e.currentTarget.getAttribute('href')!.replace('#', ''));
 	};
 

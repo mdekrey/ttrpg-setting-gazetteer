@@ -1,27 +1,15 @@
-import { useState } from 'react';
+import { OpenMobileMenu, useMobileMenuState } from '@/util/mobile-menu-state';
+import { useEffect } from 'react';
 
-const MenuToggle = ({ className, sidebarClass, otherSidebarClasses, children, title }: { className: string; sidebarClass: string; otherSidebarClasses: string[]; children?: React.ReactNode; title: string }) => {
-	const [sidebarShown, setSidebarShown] = useState(false);
+const MenuToggle = ({ className, sidebarClass, mobileMenu, children, title }: { className: string; sidebarClass: string; mobileMenu: OpenMobileMenu; children?: React.ReactNode; title: string }) => {
+	const [currentMobileMenu, setMobileMenu] = useMobileMenuState();
 
-	return (
-		<button
-			className={className}
-			data-sidebar-class={sidebarClass}
-			type="button"
-			aria-pressed={sidebarShown ? 'true' : 'false'}
-			onClick={toggleMenu}
-		>
-			{children}
-			<span className="sr-only">{title}</span>
-		</button>
-	);
+	const isActive = currentMobileMenu === mobileMenu;
 
-	function toggleMenu() {
+	useEffect(() => {
 		const body = document.getElementsByTagName('body')[0]!;
-		const sidebarShown = body.classList.contains(sidebarClass);
-		setSidebarShown(!sidebarShown);
-		if (!sidebarShown) {
-			body.classList.remove(...otherSidebarClasses);
+
+		if (isActive) {
 			body.classList.add(sidebarClass);
 			document.querySelectorAll('aside nav details').forEach((e) => {
 				e.removeAttribute('open');
@@ -36,6 +24,23 @@ const MenuToggle = ({ className, sidebarClass, otherSidebarClasses, children, ti
 				e.setAttribute('open', '');
 			});
 		}
+	}, [isActive]);
+
+	return (
+		<button
+			className={className}
+			data-sidebar-class={sidebarClass}
+			type="button"
+			aria-pressed={isActive ? 'true' : 'false'}
+			onClick={toggleMenu}
+		>
+			{children}
+			<span className="sr-only">{title}</span>
+		</button>
+	);
+
+	function toggleMenu() {
+		setMobileMenu(isActive ? null : mobileMenu);
 	}
 };
 
