@@ -1,0 +1,24 @@
+.git
+.dockerignore
+Dockerfile
+
+# build output
+ui/dist/
+ui/.output/
+
+# dependencies
+**/node_modules/
+
+# logs
+**/npm-debug.log*
+ui/yarn-debug.log*
+ui/yarn-error.log*
+ui/pnpm-debug.log*
+
+
+# environment variables
+ui/.env
+ui/.env.production
+
+# macOS-specific files
+**/.DS_Store

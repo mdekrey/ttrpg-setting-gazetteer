@@ -1,0 +1,54 @@
+name: Deploy Main
+
+on:
+  push:
+    branches:
+      - main
+
+env:
+  azClusterName: TinyKubed
+  azClusterResourceGroup: DeKreyDotNet
+
+  registryLoginServer: 'dekreydotnet.azurecr.io'
+  imageName: 'gazetteer'
+  k8sNamespace: 'gazetteer'
+  releaseName: 'gazetteer'
+
+# Secrets generated via ./deployment/generate-credentials.ps1 - need to be reset regularly
+
+jobs:
+  build:
+    runs-on: 'ubuntu-latest'
+    steps:
+    - uses: actions/checkout@v1
+
+    - name: 'Log in to docker registry'
+      uses: azure/docker-login@v1
+      with:
+        login-server: ${{ env.registryLoginServer }}
+        username: ${{ secrets.REGISTRY_USERNAME }}
+        password: ${{ secrets.REGISTRY_PASSWORD }}
+
+    - name: 'Build and push image'
+      run: |
+        docker build . -t $registryLoginServer/$imageName:${{ github.sha }} --build-arg GIT_HASH=${{ github.sha }}
+        docker push $registryLoginServer/$imageName:${{ github.sha }}
+      working-directory: ./
+
+    # Set the target Azure Kubernetes Service (AKS) cluster.
+    - uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
+    - uses: azure/aks-set-context@v2.0
+      with:
+        cluster-name: ${{ env.azClusterName }}
+        resource-group: ${{ env.azClusterResourceGroup }}
+
+    - name: Helm tool installer
+      uses: Azure/setup-helm@v3
+      with:
+        version: 3.10.0
+
+    - name: 'Deploy'
+      run: |
+        helm upgrade --install -n $k8sNamespace $releaseName --create-namespace --repo https://mdekrey.github.io/helm-charts single-container --set-string "image.repository=$registryLoginServer/$imageName,image.tag=${{ github.sha }}" --values ./deployment/values.yaml --values ./deployment/values.prod.yaml
