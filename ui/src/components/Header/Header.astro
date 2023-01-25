@@ -21,22 +21,13 @@ const { hasSecondarySidebar } = Astro.props;
 
 	<div class="ml-auto"></div>
 	{hasSecondarySidebar &&
-		<SidebarToggle sidebarClass="mobile-right-sidebar-toggle" mobileMenu="primary" className="sidebar-button" title="Toggle Sidebar" client:idle>
+		<SidebarToggle sidebarClass="mobile-right-sidebar-toggle" mobileMenu="primary" title="Toggle Sidebar" client:idle>
 			<EllipsisHorizontalCircleIcon className="w-6 h-6" />
 		</SidebarToggle>}
-	<SidebarToggle sidebarClass="mobile-left-sidebar-toggle" mobileMenu="secondary" className="sidebar-button" title="Toggle Sidebar" client:idle>
+	<SidebarToggle sidebarClass="mobile-left-sidebar-toggle" mobileMenu="secondary" title="Toggle Sidebar" client:idle>
 		<Bars3Icon className="w-6 h-6" />
 	</SidebarToggle>
 </header>
 <div class="pt-24">
 
 </div>
-<style is:global>
-	.sidebar-button {
-		@apply border rounded-md border-transparent bg-transparent p-2 md:hidden;
-	}
-	.mobile-left-sidebar-toggle .sidebar-button[data-sidebar-class='mobile-left-sidebar-toggle'],
-	.mobile-right-sidebar-toggle .sidebar-button[data-sidebar-class='mobile-right-sidebar-toggle'] {
-		@apply border-slate-500 bg-slate-200;
-	}
-</style>

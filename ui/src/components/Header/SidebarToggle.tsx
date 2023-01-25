@@ -1,7 +1,8 @@
 import { OpenMobileMenu, useMobileMenuState } from '@/util/mobile-menu-state';
 import { useEffect } from 'react';
+import { twMerge } from 'tailwind-merge';
 
-const MenuToggle = ({ className, sidebarClass, mobileMenu, children, title }: { className: string; sidebarClass: string; mobileMenu: OpenMobileMenu; children?: React.ReactNode; title: string }) => {
+const MenuToggle = ({ sidebarClass, mobileMenu, children, title }: { sidebarClass: string; mobileMenu: OpenMobileMenu; children?: React.ReactNode; title: string }) => {
 	const [currentMobileMenu, setMobileMenu] = useMobileMenuState();
 
 	const isActive = currentMobileMenu === mobileMenu;
@@ -28,8 +29,7 @@ const MenuToggle = ({ className, sidebarClass, mobileMenu, children, title }: { 
 
 	return (
 		<button
-			className={className}
-			data-sidebar-class={sidebarClass}
+			className={twMerge('border rounded-md border-transparent bg-transparent p-2 md:hidden', isActive && 'border-slate-500 bg-slate-200')}
 			type="button"
 			aria-pressed={isActive ? 'true' : 'false'}
 			onClick={toggleMenu}
