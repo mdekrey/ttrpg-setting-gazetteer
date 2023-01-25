@@ -1,7 +1,8 @@
 ---
 import { getNavigation } from '@/util/nav.astro';
 import { removeLeadingSlash, removeTrailingSlash } from '@/util/pathManipulation';
-import SidebarContent, { Props as SidebarContentProps } from './SidebarContent.astro';
+import SidebarEntry, { SectionEntry } from './SidebarEntry.astro';
+// import SidebarContent, { Props as SidebarContentProps } from './SidebarContent.astro';
 export interface Props {
 	currentPage: string;
 }
@@ -12,33 +13,34 @@ const currentPageMatch = removeLeadingSlash(removeTrailingSlash(currentPage));
 const nav = await getNavigation();
 
 const sidebarSections = nav.reduce((collection, item) => {
-	if (item.header) {
-		collection.push({ ...item, children: [] });
-	} else {
-		const section = collection[collection.length - 1];
-		if (!section) return collection;
+	let target = collection;
+	let next: typeof target | undefined;
+	let depth = 0;
+	do
+	{
+		next = target.find(c => item.slug.startsWith(c.slug))?.children;
+		if (next) {
+			target = next;
+			depth++;
+		}
+	} while (next);
 
-		let target = section;
-		let next: typeof target | undefined;
-		do
-		{
-			next = target.children.find(c => item.slug.startsWith(c.slug));
-			if (next) target = next;
-		} while (next);
-
-		target && target.children.push({ ...item, children: [] });
-	}
+	target && target.push({ ...item, depth, children: [] });
 	return collection;
-}, [] as SidebarContentProps['sidebarSections']);
+}, [] as SectionEntry[]);
 
 ---
 
 <nav aria-label="Primary">
 	<ul class={`nav-groups`}>
-		<SidebarContent
-			sidebarSections={sidebarSections}
-			currentPageMatch={currentPageMatch}
-		/>
+		{
+			sidebarSections.map((section) => (
+				<SidebarEntry
+					entry={section}
+					currentPageMatch={currentPageMatch}
+					/>
+				))
+		}
 	</ul>
 </nav>
 

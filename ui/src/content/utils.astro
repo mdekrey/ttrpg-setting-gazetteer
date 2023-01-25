@@ -4,17 +4,30 @@ import { pathToFileURL } from 'node:url';
 import { removeExtension } from '@/util/pathManipulation';
 import { processSrcRoot } from '@/util/paths';
 
+import sortBy from 'lodash/fp/sortBy';
+
 export const contentFsRoot = path.join(processSrcRoot, 'content');
 export const contentUrlRoot = pathToFileURL(contentFsRoot).href;
 
 export async function getContentEntries() {
 	const articles = await Astro.glob('/content/**/*.mdx');
 
-	return articles
-		.map(article => ({
-			...article,
-			url: removeExtension(pathToFileURL(article.file).href.substring(contentUrlRoot.length + 1)),
-		}))
-		.filter(article => !!article.frontmatter.title);
+	const result = sortBy(['url', 'isArticle'], articles
+		.map(article => {
+			let url = removeExtension(pathToFileURL(article.file).href.substring(contentUrlRoot.length + 1));
+			if (url.endsWith('/index')) url = url.substring(0, url.length - 6);
+			const parentUrl = url.split('/').slice(0, -1).join('/');
+			return ({
+				...article,
+				url,
+				parentUrl,
+				header: article.getHeadings().length === 0,
+				isArticle: article.getHeadings().length > 0,
+			});
+		})
+		.filter(article => !!article.frontmatter.title));
+	console.log(result.map(a => a.url));
+
+	return result;
 }
 ---

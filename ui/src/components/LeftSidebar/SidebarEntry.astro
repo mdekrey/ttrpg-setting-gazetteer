@@ -1,7 +1,14 @@
 ---
 import { removeSubpageSegment } from '@/util/pathManipulation';
-import type { SectionEntry } from './SidebarContent.astro';
 
+
+export type SectionEntry = {
+	text: string;
+	slug: string;
+	header: boolean;
+	depth: number;
+	children: Array<SectionEntry>;
+};
 export type Props = {
 	entry: SectionEntry;
 	currentPageMatch: string;
@@ -15,25 +22,63 @@ const isCurrent = currentPageMatch.endsWith(slug);
 const isWithin = currentPageMatch.startsWith(slug);
 ---
 
-<li class:list={[{"mb-1": !isWithin && entry.children.length > 0 }]}>
-	<a
-		class:list={['block px-1', { 'rounded-sm bg-blue-200 font-bold': isCurrent, 'border-b border-blue-200 font-bold': isWithin }]}
-		href={`${Astro.site?.pathname ?? '/'}${slug}/`}
-		aria-current={`${isCurrent ? 'page' : 'false'}`}
-		data-current-parent={`${
-			removeSubpageSegment(currentPageMatch).endsWith(removeSubpageSegment(slug))
-				? 'true'
-				: 'false'
-		}`}
-	>
-		{text}
-	</a>
+<li class:list={["px-1", {"mb-4": entry.depth === 0 }]}>
+	{entry.header
+		? <Fragment>
+			<details open={entry.depth === 0 || isWithin}>
+				<summary class="cursor-pointer list-none">
+					<h2 class="inline font-bold">
+						{entry.text}
+						<svg
+							xmlns="http://www.w3.org/2000/svg"
+							viewBox="0 1 16 16"
+							class="inline h-4 w-4 rotate-when-open"
+							aria-hidden="true"
+						>
+							<path
+								fill-rule="evenodd"
+								d="M6.22 3.22a.75.75 0 011.06 0l4.25 4.25a.75.75 0 010 1.06l-4.25 4.25a.75.75 0 01-1.06-1.06L9.94 8 6.22 4.28a.75.75 0 010-1.06z"
+							/>
+						</svg>
+					</h2>
+				</summary>
+				<ul class="ml-2">
+					{entry.children.map((entry) => (
+						<Astro.self entry={entry} currentPageMatch={currentPageMatch} />
+					))}
+				</ul>
+			</details>
+		</Fragment>
+		: <Fragment>
+			<a
+				class:list={['block', { 'rounded-sm bg-blue-200 font-bold': isCurrent, 'border-b border-blue-200 font-bold': isWithin }]}
+				href={`${Astro.site?.pathname ?? '/'}${slug}/`}
+				aria-current={`${isCurrent ? 'page' : 'false'}`}
+				data-current-parent={`${
+					removeSubpageSegment(currentPageMatch).endsWith(removeSubpageSegment(slug))
+						? 'true'
+						: 'false'
+				}`}
+			>
+				{text}
+			</a>
 
-	{entry.children.length > 0 && isWithin
-		? <ul class="ml-1 pl-1 pt-1 border-l-2 border-blue-200">
-			{entry.children.map((childEntry) => (
-				<Astro.self entry={childEntry} currentPageMatch={currentPageMatch} />
-			))}
-		</ul>
-		: null}
+			{entry.children.length > 0 && isWithin
+				? <ul class="ml-1 pl-1 border-l-2 border-blue-200">
+					{entry.children.map((childEntry) => (
+						<Astro.self entry={childEntry} currentPageMatch={currentPageMatch} />
+					))}
+				</ul>
+				: null}
+		</Fragment>}
 </li>
+<style>
+	.rotate-when-open {
+		transform: rotate(0);
+		@apply transition-transform;
+	}
+
+	details[open] > summary .rotate-when-open {
+		transform: rotate(90deg);
+	}
+</style>

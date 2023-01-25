@@ -1,5 +1,4 @@
 ---
-import { sections } from '@/content/sections';
 import { getContentEntries } from '@/content/utils.astro';
 
 export type NavEntryBase = {
@@ -7,9 +6,10 @@ export type NavEntryBase = {
 };
 export type PageNavEntry = NavEntryBase & {
 	slug: string;
-	header?: false;
+	header: false;
 };
 export type HeaderNavEntry = NavEntryBase & {
+	slug: string;
 	header: true;
 };
 export type NavEntry = PageNavEntry | HeaderNavEntry;
@@ -17,25 +17,10 @@ export type NavEntry = PageNavEntry | HeaderNavEntry;
 export async function getNavigation(): Promise<NavEntry[]> {
 	const contentEntries = (await getContentEntries())
 		.filter(article => !article.frontmatter.draft)
-		.map((article): PageNavEntry => {
-			return { text: article.frontmatter.title, slug: article.url };
+		.map((article): NavEntry => {
+			return { text: article.frontmatter.title, slug: article.url, header: article.header };
 		});
 
-	const final = contentEntries.reduce((result, next) => {
-		const last = result[result.length - 1];
-
-		const section = next.slug.split('/')[0] ?? '';
-
-		if (!last || (!last.header && last.slug.split('/')[0] !== section )) {
-			const text = sections[section];
-			if (!text) return result;
-			result.push({ text, header: true });
-		}
-		result.push(next);
-
-		return result;
-	}, [] as NavEntry[]);
-
-	return final;
+	return contentEntries;
 }
 ---

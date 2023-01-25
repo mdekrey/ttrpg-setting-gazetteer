@@ -21,9 +21,9 @@ const MenuToggle = ({ sidebarClass, mobileMenu, children, title }: { sidebarClas
 				?.setAttribute('open', '');
 		} else {
 			body.classList.remove(sidebarClass);
-			document.querySelectorAll('aside nav details').forEach((e) => {
-				e.setAttribute('open', '');
-			});
+			// document.querySelectorAll('aside nav details').forEach((e) => {
+			// 	e.setAttribute('open', '');
+			// });
 		}
 	}, [isActive]);
 
