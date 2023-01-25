@@ -68,7 +68,7 @@ const TableOfContents = ({ toc }: Props) => {
 
 	return (
 		<>
-			<h2 className="mb-4 font-bold text-blue-dark">Table of Contents</h2>
+			<h2 className="mb-4 font-bold text-blue-dark">On this page...</h2>
 			<ul>
 				{toc.map((heading) => (
 					<TableOfContentsItem key={heading.slug} heading={heading} currentHeadingSlug={currentHeading} onLinkClick={onLinkClick} />
