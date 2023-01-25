@@ -1,0 +1,20 @@
+---
+import path from 'node:path';
+import { pathToFileURL } from 'node:url';
+import { removeExtension } from '@/util/pathManipulation';
+import { processSrcRoot } from '@/util/paths';
+
+export const contentFsRoot = path.join(processSrcRoot, 'content');
+export const contentUrlRoot = pathToFileURL(contentFsRoot).href;
+
+export async function getContentEntries() {
+	const articles = await Astro.glob('/content/**/*.mdx');
+
+	return articles
+		.map(article => ({
+			...article,
+			url: removeExtension(pathToFileURL(article.file).href.substring(contentUrlRoot.length + 1)),
+		}))
+		.filter(article => !!article.frontmatter.title);
+}
+---

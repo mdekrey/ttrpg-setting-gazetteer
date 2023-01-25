@@ -1,6 +1,6 @@
 ---
 import Layout from '@/layouts/Layout.astro';
-import { getGazetteerEntries } from '@/gazetteer/utils.astro';
+import { getContentEntries } from '@/content/utils.astro';
 import { components } from '@/mdx/components';
 import type { AstroComponentFactory } from 'astro/dist/runtime/server';
 import type { MarkdownHeading } from 'astro';
@@ -15,10 +15,10 @@ export type Props = {
 }
 
 export async function getStaticPaths() {
-	const articles = await getGazetteerEntries();
+	const articles = await getContentEntries();
 	return articles.map(article => {
 		return ({
-			params: { pages: article.url.split('/').slice(1).join('/') },
+			params: { pages: article.url },
 			props: { Component: article.Content, title: article.frontmatter.title, headings: article.getHeadings() }
 		});
 	})

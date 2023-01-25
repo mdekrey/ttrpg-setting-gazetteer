@@ -1,5 +1,6 @@
 ---
-import { getGazetteerEntries } from '@/gazetteer/utils.astro';
+import { sections } from '@/content/sections';
+import { getContentEntries } from '@/content/utils.astro';
 
 export type NavEntryBase = {
 	text: string;
@@ -14,13 +15,27 @@ export type HeaderNavEntry = NavEntryBase & {
 export type NavEntry = PageNavEntry | HeaderNavEntry;
 
 export async function getNavigation(): Promise<NavEntry[]> {
-	const gazetteerEntries = (await getGazetteerEntries()).map((article): NavEntry => {
-		return { text: article.frontmatter.title, slug: article.url };
-	});
+	const contentEntries = (await getContentEntries())
+		.filter(article => !article.frontmatter.draft)
+		.map((article): PageNavEntry => {
+			return { text: article.frontmatter.title, slug: article.url };
+		});
 
-	return [
-		{ text: 'Gazetteer', header: true },
-		...gazetteerEntries,
-	];
+	const final = contentEntries.reduce((result, next) => {
+		const last = result[result.length - 1];
+
+		const section = next.slug.split('/')[0] ?? '';
+
+		if (!last || (!last.header && last.slug.split('/')[0] !== section )) {
+			const text = sections[section];
+			if (!text) return result;
+			result.push({ text, header: true });
+		}
+		result.push(next);
+
+		return result;
+	}, [] as NavEntry[]);
+
+	return final;
 }
 ---
