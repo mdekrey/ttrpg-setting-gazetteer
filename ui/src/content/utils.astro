@@ -27,7 +27,6 @@ export async function getContentEntries() {
 			});
 		})
 		.filter(article => !!article.frontmatter.title));
-	console.log(result.map(a => a.url));
 
 	return result;
 }
