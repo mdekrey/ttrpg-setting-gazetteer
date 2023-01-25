@@ -15,12 +15,13 @@ export async function getContentEntries() {
 	const result = sortBy(['url', 'isArticle'], articles
 		.map(article => {
 			let url = removeExtension(pathToFileURL(article.file).href.substring(contentUrlRoot.length + 1));
-			if (url.endsWith('/index')) url = url.substring(0, url.length - 6);
 			const parentUrl = url.split('/').slice(0, -1).join('/');
+			if (url.endsWith('/index')) url = url.substring(0, url.length - 6);
 			return ({
 				...article,
 				url,
 				parentUrl,
+				sortOrder: Number(article.frontmatter.sortOrder ?? 0),
 				header: article.getHeadings().length === 0,
 				isArticle: article.getHeadings().length > 0,
 			});

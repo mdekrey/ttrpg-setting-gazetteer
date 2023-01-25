@@ -1,12 +1,13 @@
 ---
 import { removeSubpageSegment } from '@/util/pathManipulation';
-
+import sortBy from 'lodash/fp/sortBy';
 
 export type SectionEntry = {
 	text: string;
 	slug: string;
 	header: boolean;
 	depth: number;
+	sortOrder: number;
 	children: Array<SectionEntry>;
 };
 export type Props = {
@@ -20,6 +21,8 @@ const { slug, text } = entry;
 
 const isCurrent = currentPageMatch.endsWith(slug);
 const isWithin = currentPageMatch.startsWith(slug);
+
+const sortedChildren = sortBy(['sortOrder'], entry.children);
 ---
 
 <li class:list={["px-1", {"mb-4": entry.depth === 0 }]}>
@@ -43,7 +46,7 @@ const isWithin = currentPageMatch.startsWith(slug);
 					</h2>
 				</summary>
 				<ul class="ml-2">
-					{entry.children.map((entry) => (
+					{sortedChildren.map((entry) => (
 						<Astro.self entry={entry} currentPageMatch={currentPageMatch} />
 					))}
 				</ul>
@@ -63,9 +66,9 @@ const isWithin = currentPageMatch.startsWith(slug);
 				{text}
 			</a>
 
-			{entry.children.length > 0 && isWithin
+			{sortedChildren.length > 0 && isWithin
 				? <ul class="ml-1 pl-1 border-l-2 border-blue-200">
-					{entry.children.map((childEntry) => (
+					{sortedChildren.map((childEntry) => (
 						<Astro.self entry={childEntry} currentPageMatch={currentPageMatch} />
 					))}
 				</ul>

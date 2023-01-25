@@ -3,6 +3,7 @@ import { getContentEntries } from '@/content/utils.astro';
 
 export type NavEntryBase = {
 	text: string;
+	sortOrder: number;
 };
 export type PageNavEntry = NavEntryBase & {
 	slug: string;
@@ -18,7 +19,12 @@ export async function getNavigation(): Promise<NavEntry[]> {
 	const contentEntries = (await getContentEntries())
 		.filter(article => !article.frontmatter.draft)
 		.map((article): NavEntry => {
-			return { text: article.frontmatter.title, slug: article.url, header: article.header };
+			return {
+				text: article.frontmatter.title,
+				slug: article.url,
+				sortOrder: article.sortOrder,
+				header: article.header
+			};
 		});
 
 	return contentEntries;
