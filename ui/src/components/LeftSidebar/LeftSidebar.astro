@@ -1,0 +1,50 @@
+---
+import { getNavigation } from '@/util/nav.astro';
+import { removeLeadingSlash, removeTrailingSlash } from '@/util/pathManipulation';
+import SidebarContent, { Props as SidebarContentProps } from './SidebarContent.astro';
+export interface Props {
+	currentPage: string;
+}
+
+const { currentPage } = Astro.props;
+const currentPageMatch = removeLeadingSlash(removeTrailingSlash(currentPage));
+
+const nav = await getNavigation();
+
+const sidebarSections = nav.reduce((collection, item) => {
+	if (item.header) {
+		collection.push({ ...item, children: [] });
+	} else {
+		const section = collection[collection.length - 1];
+		if (!section) return collection;
+
+		let target = section;
+		let next: typeof target | undefined;
+		do
+		{
+			next = target.children.find(c => item.slug.startsWith(c.slug));
+			if (next) target = next;
+		} while (next);
+
+		target && target.children.push({ ...item, children: [] });
+	}
+	return collection;
+}, [] as SidebarContentProps['sidebarSections']);
+
+---
+
+<nav aria-label="Primary">
+	<ul class={`nav-groups`}>
+		<SidebarContent
+			sidebarSections={sidebarSections}
+			currentPageMatch={currentPageMatch}
+		/>
+	</ul>
+</nav>
+
+<script>
+	window.addEventListener('DOMContentLoaded', () => {
+		var target = document.querySelector('[data-current-parent="true"]');
+		target?.scrollIntoView({ block: 'center' });
+	});
+</script>

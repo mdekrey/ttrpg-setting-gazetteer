@@ -1,0 +1,26 @@
+---
+import { getGazetteerEntries } from '@/gazetteer/utils.astro';
+
+export type NavEntryBase = {
+	text: string;
+};
+export type PageNavEntry = NavEntryBase & {
+	slug: string;
+	header?: false;
+};
+export type HeaderNavEntry = NavEntryBase & {
+	header: true;
+};
+export type NavEntry = PageNavEntry | HeaderNavEntry;
+
+export async function getNavigation(): Promise<NavEntry[]> {
+	const gazetteerEntries = (await getGazetteerEntries()).map((article): NavEntry => {
+		return { text: article.frontmatter.title, slug: article.url };
+	});
+
+	return [
+		{ text: 'Gazetteer', header: true },
+		...gazetteerEntries,
+	];
+}
+---

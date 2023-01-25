@@ -1,0 +1,39 @@
+---
+import { removeSubpageSegment } from '@/util/pathManipulation';
+import type { SectionEntry } from './SidebarContent.astro';
+
+export type Props = {
+	entry: SectionEntry;
+	currentPageMatch: string;
+
+};
+
+const { entry, currentPageMatch } = Astro.props as Props;
+const { slug, text } = entry;
+
+const isCurrent = currentPageMatch.endsWith(slug);
+const isWithin = currentPageMatch.startsWith(slug);
+---
+
+<li class:list={[{"mb-1": !isWithin && entry.children.length > 0 }]}>
+	<a
+		class:list={['block px-1', { 'rounded-sm bg-blue-200 font-bold': isCurrent, 'border-b border-blue-200 font-bold': isWithin }]}
+		href={`${Astro.site?.pathname ?? '/'}${slug}/`}
+		aria-current={`${isCurrent ? 'page' : 'false'}`}
+		data-current-parent={`${
+			removeSubpageSegment(currentPageMatch).endsWith(removeSubpageSegment(slug))
+				? 'true'
+				: 'false'
+		}`}
+	>
+		{text}
+	</a>
+
+	{entry.children.length > 0 && isWithin
+		? <ul class="ml-1 pl-1 pt-1 border-l-2 border-blue-200">
+			{entry.children.map((childEntry) => (
+				<Astro.self entry={childEntry} currentPageMatch={currentPageMatch} />
+			))}
+		</ul>
+		: null}
+</li>

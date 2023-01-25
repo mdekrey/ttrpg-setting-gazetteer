@@ -1,12 +1,42 @@
 ---
 import SkipToContent from './SkipToContent.astro';
 import SidebarToggle from './SidebarToggle';
----
-<header class="flex h-24 items-center gap-2 mx-2">
-	<SkipToContent />
-	<h1>Game World Encyclopedia</h1>
+import { default as GlobeAsiaAustraliaIcon } from '@heroicons/react/24/outline/GlobeAsiaAustraliaIcon';
+import { default as EllipsisHorizontalCircleIcon } from '@heroicons/react/24/outline/EllipsisHorizontalCircleIcon';
+import { default as Bars3Icon } from '@heroicons/react/24/outline/Bars3Icon';
 
-	<span class="ml-auto">
-		<SidebarToggle client:idle />
-	</span>
+export interface Props {
+	currentPage: string;
+	hasSecondarySidebar: boolean;
+}
+
+const { hasSecondarySidebar } = Astro.props;
+---
+<header class="fixed flex h-24 items-center gap-2 px-4 bg-white w-full">
+	<SkipToContent />
+	<h1>
+		<GlobeAsiaAustraliaIcon className="w-8 h-8 inline" />
+		World Catalogue
+	</h1>
+
+	<div class="ml-auto"></div>
+	{hasSecondarySidebar &&
+		<SidebarToggle sidebarClass="mobile-right-sidebar-toggle" otherSidebarClasses={['mobile-left-sidebar-toggle']} className="sidebar-button" title="Toggle Sidebar" client:idle>
+			<EllipsisHorizontalCircleIcon className="w-6 h-6" />
+		</SidebarToggle>}
+	<SidebarToggle sidebarClass="mobile-left-sidebar-toggle" otherSidebarClasses={['mobile-right-sidebar-toggle']} className="sidebar-button" title="Toggle Sidebar" client:idle>
+		<Bars3Icon className="w-6 h-6" />
+	</SidebarToggle>
 </header>
+<div class="pt-24">
+
+</div>
+<style is:global>
+	.sidebar-button {
+		@apply border rounded-md border-transparent bg-transparent p-2 md:hidden;
+	}
+	.mobile-left-sidebar-toggle .sidebar-button[data-sidebar-class='mobile-left-sidebar-toggle'],
+	.mobile-right-sidebar-toggle .sidebar-button[data-sidebar-class='mobile-right-sidebar-toggle'] {
+		@apply border-slate-500 bg-slate-200;
+	}
+</style>

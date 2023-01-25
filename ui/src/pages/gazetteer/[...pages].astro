@@ -1,26 +1,37 @@
 ---
 import Layout from '@/layouts/Layout.astro';
-import { gazetteerFsRoot } from '@/gazetteer';
+import { getGazetteerEntries } from '@/gazetteer/utils.astro';
 import { components } from '@/mdx/components';
-// import StyledContent from '@/mdx/styled.astro';
+import type { AstroComponentFactory } from 'astro/dist/runtime/server';
+import type { MarkdownHeading } from 'astro';
+import RightSidebar from '@/components/RightSidebar/RightSidebar.astro';
+import TableOfContents from '@/components/RightSidebar/TableOfContents';
+import { generateToc } from '@/util/generateToc';
 
-export async function getStaticPaths() {
-  const articles = await Astro.glob('/gazetteer/*.mdx');
-  return articles.map(article => {
-    let path = article.file.substring(gazetteerFsRoot.length + 1);
-    path = path.substring(0, path.length - 4);
-    return ({
-      params: { pages: path },
-      props: { Component: article.Content, title: article.frontmatter.title }
-    });
-  })
+export type Props = {
+	Component: AstroComponentFactory;
+	title: string;
+	headings: MarkdownHeading[];
 }
 
-const { Component, title } = Astro.props;
+export async function getStaticPaths() {
+	const articles = await getGazetteerEntries();
+	return articles.map(article => {
+		return ({
+			params: { pages: article.url.split('/').slice(1).join('/') },
+			props: { Component: article.Content, title: article.frontmatter.title, headings: article.getHeadings() }
+		});
+	})
+}
+
+const { Component, title, headings } = Astro.props;
 
 ---
 
 <Layout title={title}>
+	<RightSidebar slot="secondary-sidebar">
+    <TableOfContents toc={generateToc(headings)} slot="nav" client:idle />
+  </RightSidebar>
 	<main>
 		<Component components={components} />
 	</main>
