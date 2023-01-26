@@ -4,10 +4,15 @@ import Header from '@/components/Header/Header.astro';
 import './Layout.css';
 export interface Props {
 	title: string;
+	ogImage?: string;
+	ogDescription?: string;
 }
 
-const { title } = Astro.props;
+const { title, ogImage, ogDescription } = Astro.props;
 const currentPage = Astro.url.pathname;
+const canonicalURL = new URL(Astro.url.pathname.replace(/([^/])$/, '$1/'), Astro.site);
+
+const gitHash = import.meta.env.GIT_HASH ?? 'HEAD';
 ---
 
 <!DOCTYPE html>
@@ -15,8 +20,21 @@ const currentPage = Astro.url.pathname;
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width" />
+		<link rel="canonical" href={canonicalURL} />
 		<!-- <link rel="icon" type="image/svg+xml" href="/favicon.svg" /> -->
 		<meta name="generator" content={Astro.generator} />
+		<meta name="git-version" content={gitHash} />
+
+		<meta property="og:title" content={title} />
+		<meta property="og:type" content="article" />
+		<meta property="og:url" content={canonicalURL} />
+		{ogImage && <meta property="og:image" content={new URL(ogImage, Astro.site)} />}
+		{ogDescription && <meta
+				name="description"
+				property="og:description"
+				content={ogDescription}
+			/>}
+
 		<title>{title}</title>
 	</head>
 	<body class="theme-blue-dark">

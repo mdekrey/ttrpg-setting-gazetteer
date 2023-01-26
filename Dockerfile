@@ -8,7 +8,12 @@ COPY ui/package.json ui/package-lock.json ./
 RUN npm ci
 
 COPY ui/ .
-RUN npm run build
+
+# Disable Astro telemetry
+ENV ASTRO_TELEMETRY_DISABLED=1
+
+ARG DOMAIN=https://setting.dekrey.net
+RUN npm run build -- --site $DOMAIN
 
 FROM ghcr.io/mdekrey/static-files-server
 COPY --from=build-node /src/dist ./wwwroot

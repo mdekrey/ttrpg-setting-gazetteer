@@ -17,18 +17,20 @@ export type Props = {
 export async function getStaticPaths() {
 	const articles = await getContentEntries();
 	return articles.map(article => {
+		const { ogImage, ogDescription } = article as any;
+
 		return ({
 			params: { pages: article.url },
-			props: { Component: article.Content, title: article.frontmatter.title, headings: article.getHeadings() }
+			props: { Component: article.Content, title: article.frontmatter.title, headings: article.getHeadings(), ogImage, ogDescription }
 		});
 	})
 }
 
-const { Component, title, headings } = Astro.props;
+const { Component, title, headings, ogImage, ogDescription } = Astro.props;
 
 ---
 
-<Layout title={title}>
+<Layout title={title} ogImage={ogImage} ogDescription={ogDescription}>
 	<RightSidebar slot="secondary-sidebar">
     <TableOfContents toc={generateToc(headings)} slot="nav" client:idle />
   </RightSidebar>
