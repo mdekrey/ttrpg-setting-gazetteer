@@ -12,6 +12,8 @@ COPY ui/ .
 # Disable Astro telemetry
 ENV ASTRO_TELEMETRY_DISABLED=1
 
+ARG GIT_HASH=HEAD
+ENV GIT_HASH=${GIT_HASH}
 ARG DOMAIN=https://setting.dekrey.net
 RUN npm run build -- --site $DOMAIN
 
