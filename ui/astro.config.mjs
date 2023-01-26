@@ -10,7 +10,10 @@ import react from "@astrojs/react";
 import mdx from "@astrojs/mdx";
 
 // https://astro.build/config
+import image from "@astrojs/image";
+
+// https://astro.build/config
 export default defineConfig({
   root: 'src',
-  integrations: [tailwind(), react(), mdx()]
+  integrations: [tailwind(), react(), mdx(), image()]
 });
