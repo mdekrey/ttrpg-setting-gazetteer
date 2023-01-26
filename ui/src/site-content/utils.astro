@@ -6,11 +6,11 @@ import { processSrcRoot } from '@/util/paths';
 
 import sortBy from 'lodash/fp/sortBy';
 
-export const contentFsRoot = path.join(processSrcRoot, 'content');
+export const contentFsRoot = path.join(processSrcRoot, 'site-content');
 export const contentUrlRoot = pathToFileURL(contentFsRoot).href;
 
 export async function getContentEntries() {
-	const articles = await Astro.glob('/content/**/*.mdx');
+	const articles = await Astro.glob('/site-content/**/*.mdx');
 
 	const result = sortBy(['url', 'isArticle'], articles
 		.map(article => {
