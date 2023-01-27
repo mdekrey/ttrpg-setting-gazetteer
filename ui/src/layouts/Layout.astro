@@ -25,16 +25,31 @@ const gitHash = import.meta.env.GIT_HASH ?? 'HEAD';
 		<meta name="generator" content={Astro.generator} />
 		<meta name="git-version" content={gitHash} />
 
-		<meta name="og:site_name" content="World Encyclopedia" />
 		<meta property="og:title" content={title} />
 		<meta property="og:type" content="article" />
 		<meta property="og:url" content={canonicalURL} />
+		<meta property="og:locale" content="en">
 		{ogImage && <meta property="og:image" content={new URL(ogImage, Astro.site)} />}
-		{ogDescription && <meta
+		{ogDescription &&
+			<meta
 				name="description"
 				property="og:description"
 				content={ogDescription}
 			/>}
+		<meta name="og:site_name" content="World Encyclopedia" />
+
+		{ogImage
+			? <meta name="twitter:card" content="summary_large_image"/>
+			: <meta name="twitter:card" content="summary"/>}
+		<meta name="twitter:site" content="World Encyclopedia" />
+		<meta property="twitter:title" content={title} />
+		{ogDescription &&
+			<meta
+				name="twitter:description"
+				content={ogDescription}
+			/>}
+		{ogImage && <meta property="twitter:image" content={new URL(ogImage, Astro.site)} />}
+
 
 		<title>{title}</title>
 	</head>
