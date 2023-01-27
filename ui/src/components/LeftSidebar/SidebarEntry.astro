@@ -1,6 +1,8 @@
 ---
-import { removeSubpageSegment } from '@/util/pathManipulation';
+import ChevronRightIcon from '@heroicons/react/24/outline/ChevronRightIcon'
 import sortBy from 'lodash/fp/sortBy';
+import { twMerge } from 'tailwind-merge';
+import { removeSubpageSegment } from '@/util/pathManipulation';
 
 export type SectionEntry = {
 	text: string;
@@ -32,17 +34,7 @@ const sortedChildren = sortBy(['sortOrder'], entry.children);
 				<summary class="cursor-pointer list-none">
 					<h2 class="inline font-bold">
 						{entry.text}
-						<svg
-							xmlns="http://www.w3.org/2000/svg"
-							viewBox="0 1 16 16"
-							class="inline h-4 w-4 rotate-when-open"
-							aria-hidden="true"
-						>
-							<path
-								fill-rule="evenodd"
-								d="M6.22 3.22a.75.75 0 011.06 0l4.25 4.25a.75.75 0 010 1.06l-4.25 4.25a.75.75 0 01-1.06-1.06L9.94 8 6.22 4.28a.75.75 0 010-1.06z"
-							/>
-						</svg>
+						<ChevronRightIcon className="inline align-baseline h-3 w-3 rotate-when-open" />
 					</h2>
 				</summary>
 				<ul class="ml-2">
@@ -64,6 +56,9 @@ const sortedChildren = sortBy(['sortOrder'], entry.children);
 				}`}
 			>
 				{text}
+				{sortedChildren.length > 0
+				? <ChevronRightIcon className={twMerge('inline align-baseline h-3 w-3', isWithin && 'rotate-90', !isWithin && 'rotate-0')} />
+				: null}
 			</a>
 
 			{sortedChildren.length > 0 && isWithin
