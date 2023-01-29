@@ -1,0 +1,18 @@
+---
+import { Picture } from '@astrojs/image/components';
+import type { ImageMetadata } from '@astrojs/image/dist/vite-plugin-astro-image';
+// import { Debug } from 'astro/components';
+
+export type Props = {
+	image: ImageMetadata;
+	alt: string;
+	aspectRatio: number | `${number}:${number}`;
+};
+
+const { image, alt, aspectRatio } = Astro.props;
+
+---
+
+<Picture sizes="(min-width: 992px) 480px, 374px" widths={[480, 374]} class="ml-4 mb-4 max-w-[50%] p-1 border float-right" formats={['webp','jpeg']}
+	src={image} alt={alt} aspectRatio={aspectRatio} />
+<!-- <Debug image={image} aspectRatio={aspectRatio} /> -->

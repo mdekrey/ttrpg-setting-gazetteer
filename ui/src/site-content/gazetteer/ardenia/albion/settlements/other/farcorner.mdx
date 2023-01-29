@@ -3,14 +3,13 @@ title: Farcorner
 type: City
 ---
 import townMap from './Farcorner.jpg';
-import { Picture } from '@astrojs/image/components';
+import ImagePreview from '@/components/ImagePreview/ImagePreview.astro';
 
 export const ogImage = townMap.src;
 export const ogDescription = 'Farcorner is a small, superstitious hamlet known for its exceptional produce grown from the latent magic of the nearby West Weald.';
 
 # Farcorner
-<Picture widths={[374, 480]} className="ml-4 mb-4 max-w-[50%] p-1 border" align="right" formats={['webp','jpeg']}
-	src={townMap} alt="Map to Farcorner" aspectRatio="40:21"/>
+<ImagePreview image={townMap} alt="Map to Farcorner" aspectRatio="40:21"/>
 
 Farcorner is a small hamlet located at the southwest corner of the country's territory, at the border of the West Weald. The people of Farcorner are mostly farmers and ranchers, who live off the land and are known for their hardworking and independent spirit. They are known to keep to themselves, but they are welcoming to outsiders.
 
