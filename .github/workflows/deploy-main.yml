@@ -37,6 +37,13 @@ jobs:
         docker push $registryLoginServer/$imageName:${{ github.sha }}
       working-directory: ./
 
+  deploy:
+    runs-on: 'ubuntu-latest'
+    needs: build
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        lfs: true
     # Set the target Azure Kubernetes Service (AKS) cluster.
     - uses: azure/login@v1
       with:
