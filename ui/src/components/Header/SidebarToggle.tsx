@@ -1,4 +1,4 @@
-import { OpenMobileMenu, useMobileMenuState } from '@/util/mobile-menu-state';
+import { OpenMobileMenu, useMobileMenuState } from '@/components/Header/mobile-menu-state';
 import { useEffect } from 'react';
 import { twMerge } from 'tailwind-merge';
 

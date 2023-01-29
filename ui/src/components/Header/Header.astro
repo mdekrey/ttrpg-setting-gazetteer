@@ -4,6 +4,7 @@ import SidebarToggle from './SidebarToggle';
 import { default as GlobeAsiaAustraliaIcon } from '@heroicons/react/24/outline/GlobeAsiaAustraliaIcon';
 import { default as EllipsisHorizontalCircleIcon } from '@heroicons/react/24/outline/EllipsisHorizontalCircleIcon';
 import { default as Bars3Icon } from '@heroicons/react/24/outline/Bars3Icon';
+import { ImageOverlay } from '../ImagePreview/ImageOverlay';
 
 export interface Props {
 	currentPage: string;
@@ -31,3 +32,5 @@ const { hasSecondarySidebar } = Astro.props;
 <div class="pt-24">
 
 </div>
+
+<ImageOverlay client:idle />

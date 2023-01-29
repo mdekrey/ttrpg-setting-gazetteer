@@ -24,10 +24,12 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "tailwind-merge": "^1.8.1",
-    "tailwindcss": "^3.2.4"
+    "tailwindcss": "^3.2.4",
+    "yet-another-react-lightbox": "^2.2.7"
   },
   "devDependencies": {
     "@mdx-js/react": "^2.2.1",
+    "@types/html-escaper": "^3.0.0",
     "@types/node": "^18.11.18"
   }
 }

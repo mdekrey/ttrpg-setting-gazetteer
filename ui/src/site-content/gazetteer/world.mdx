@@ -4,15 +4,14 @@ sortOrder: -1000
 ---
 import worldOgImage from './World-og.jpg';
 import worldImage from './World.jpg';
-import { Image, Picture } from '@astrojs/image/components';
+import ImagePreview from '@/components/ImagePreview/ImagePreview.astro';
 
 export const ogImage = worldOgImage.src;
 export const ogDescription = 'The known world within the material plane is known to its inhabitants as Gaia.';
 
 # Gaia
 
-<Picture widths={[374, 480]} className="ml-4 mb-4 max-w-[50%] p-1 border" align="right" formats={['webp','jpeg']}
-	src={worldImage} alt="A map of Gaia" aspectRatio="4:3" />
+<ImagePreview image={worldImage} alt="A map of Gaia" />
 
 The world of the material plane is known to its inhabitants as Gaia. One of the known spheres of existence, Gaia is home to many races, most commonly humans, elves, dwarves, halfings, and gnomes. Gaia is a temperate orb, generally experiencing colder temperatures at the northern and southern pole, with seasonal changes.
 

@@ -2,7 +2,7 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "command": "./node_modules/.bin/astro dev --site http://127.0.0.1:3000",
+      "command": "./node_modules/.bin/astro dev --site http://127.0.0.1:3000 --host",
       "name": "Development server",
       "request": "launch",
       "type": "node-terminal",
