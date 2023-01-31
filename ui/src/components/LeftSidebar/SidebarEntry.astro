@@ -31,7 +31,7 @@ const sortedChildren = sortBy(['sortOrder'], entry.children);
 		entry.header ? (
 			<Fragment>
 				<details open={entry.depth === 0 || isWithin}>
-					<summary class="cursor-pointer list-none px-1">
+					<summary class="cursor-pointer list-none px-1 hover:outline outline-blue-500">
 						<h2 class="inline font-bold">
 							{entry.text}
 							<ChevronRightIcon className="inline align-baseline h-3 w-3 rotate-when-open" />
@@ -48,7 +48,7 @@ const sortedChildren = sortBy(['sortOrder'], entry.children);
 			<Fragment>
 				<a
 					class:list={[
-						'block px-1',
+						'block px-1 hover:outline outline-blue-500',
 						{
 							'rounded-sm bg-blue-200 font-bold': isCurrent,
 							'border-b border-blue-200 font-bold': isWithin,

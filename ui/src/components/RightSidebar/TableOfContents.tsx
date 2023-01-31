@@ -2,6 +2,7 @@ import type { TocItem } from '@/util/generateToc';
 import { mobileMenuState } from '@/components/Header/mobile-menu-state';
 import { unescape } from 'html-escaper';
 import React, { useState, useEffect } from 'react';
+import { twMerge } from 'tailwind-merge';
 
 interface Props {
 	toc: TocItem[];
@@ -20,11 +21,10 @@ function TableOfContentsItem({
 	return (
 		<li>
 			<a
-				className={
-					currentHeadingSlug === slug
-						? 'bg-blue-200 font-bold block px-1'
-						: 'block px-1'
-				}
+				className={twMerge(
+					'block pl-5 pr-1 -indent-4 hover:outline outline-blue-500',
+					currentHeadingSlug === slug && 'bg-blue-200 font-bold'
+				)}
 				href={`#${slug}`}
 				onClick={onLinkClick}
 			>
