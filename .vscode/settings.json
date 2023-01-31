@@ -3,13 +3,22 @@
         "source.fixAll.eslint": true
     },
     "editor.insertSpaces": false,
+    "eslint.rules.customizations": [
+        {
+            "rule": "*",
+            "severity": "warn"
+        }
+    ],
     "eslint.validate": [
         "javascript",
         "javascriptreact",
         "astro", // Enable .astro
         "typescript", // Enable .ts
-        "typescriptreact" // Enable .tsx
+        "typescriptreact", // Enable .tsx
+        "markdown", // Enable .md
+        "mdx", // Enable .mdx
     ],
+    "eslint.workingDirectories": [ "./ui" ],
     "files.eol": "\n",
     "typescript.tsdk": "ui/node_modules/typescript/lib",
 }
