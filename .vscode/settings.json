@@ -1,3 +1,15 @@
 {
-    "editor.insertSpaces": false
+    "editor.codeActionsOnSave": {
+        "source.fixAll.eslint": true
+    },
+    "editor.insertSpaces": false,
+    "eslint.validate": [
+        "javascript",
+        "javascriptreact",
+        "astro", // Enable .astro
+        "typescript", // Enable .ts
+        "typescriptreact" // Enable .tsx
+    ],
+    "files.eol": "\n",
+    "typescript.tsdk": "ui/node_modules/typescript/lib",
 }

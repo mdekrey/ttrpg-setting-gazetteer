@@ -1,6 +1,9 @@
 ---
 import { getNavigation } from '@/util/nav.astro';
-import { removeLeadingSlash, removeTrailingSlash } from '@/util/pathManipulation';
+import {
+	removeLeadingSlash,
+	removeTrailingSlash,
+} from '@/util/pathManipulation';
 import SidebarEntry, { SectionEntry } from './SidebarEntry.astro';
 // import SidebarContent, { Props as SidebarContentProps } from './SidebarContent.astro';
 export interface Props {
@@ -16,9 +19,8 @@ const sidebarSections = nav.reduce((collection, item) => {
 	let target = collection;
 	let next: typeof target | undefined;
 	let depth = 0;
-	do
-	{
-		next = target.find(c => item.slug.startsWith(c.slug))?.children;
+	do {
+		next = target.find((c) => item.slug.startsWith(c.slug))?.children;
 		if (next) {
 			target = next;
 			depth++;
@@ -28,18 +30,14 @@ const sidebarSections = nav.reduce((collection, item) => {
 	target && target.push({ ...item, depth, children: [] });
 	return collection;
 }, [] as SectionEntry[]);
-
 ---
 
 <nav aria-label="Primary">
 	<ul class={`nav-groups`}>
 		{
 			sidebarSections.map((section) => (
-				<SidebarEntry
-					entry={section}
-					currentPageMatch={currentPageMatch}
-					/>
-				))
+				<SidebarEntry entry={section} currentPageMatch={currentPageMatch} />
+			))
 		}
 	</ul>
 </nav>

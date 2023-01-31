@@ -1,6 +1,9 @@
 ---
 import { getContentEntries } from '@/site-content/utils.astro';
-import { removeLeadingSlash, removeTrailingSlash } from '@/util/pathManipulation';
+import {
+	removeLeadingSlash,
+	removeTrailingSlash,
+} from '@/util/pathManipulation';
 
 export type NavEntryBase = {
 	text: string;
@@ -18,13 +21,19 @@ export type NavEntry = PageNavEntry | HeaderNavEntry;
 
 export async function getNavigation(currentPage: string): Promise<NavEntry[]> {
 	const contentEntries = (await getContentEntries())
-		.filter(article => !article.frontmatter.draft || currentPage.startsWith(removeLeadingSlash(removeTrailingSlash(article.url))))
+		.filter(
+			(article) =>
+				!article.frontmatter.draft ||
+				currentPage.startsWith(
+					removeLeadingSlash(removeTrailingSlash(article.url))
+				)
+		)
 		.map((article): NavEntry => {
 			return {
 				text: article.frontmatter.title,
 				slug: article.url,
 				sortOrder: article.sortOrder,
-				header: article.header
+				header: article.header,
 			};
 		});
 

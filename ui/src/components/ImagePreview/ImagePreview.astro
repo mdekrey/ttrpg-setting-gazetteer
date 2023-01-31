@@ -11,11 +11,21 @@ export type Props = {
 
 const { image, alt } = Astro.props;
 const aspectRatio = image.width / image.height;
-
 ---
 
-<PictureButton client:load image={image} className="ml-4 mb-4 p-1 border float-right max-w-[50%]">
-	<Picture sizes="(min-width: 992px) 480px, 374px" widths={[480, 374]} class="w-full" formats={['webp','jpeg']}
-		src={image} alt={alt} aspectRatio={aspectRatio} />
+<PictureButton
+	client:load
+	image={image}
+	className="ml-4 mb-4 p-1 border float-right max-w-[50%]"
+>
+	<Picture
+		sizes="(min-width: 992px) 480px, 374px"
+		widths={[480, 374]}
+		class="w-full"
+		formats={['webp', 'jpeg']}
+		src={image}
+		alt={alt}
+		aspectRatio={aspectRatio}
+	/>
 </PictureButton>
 <!-- <Debug image={image} aspectRatio={aspectRatio} /> -->

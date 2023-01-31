@@ -13,6 +13,7 @@ export interface Props {
 
 const { hasSecondarySidebar } = Astro.props;
 ---
+
 <header class="fixed flex h-24 items-center gap-2 px-4 bg-white w-full">
 	<SkipToContent />
 	<h1>
@@ -21,16 +22,27 @@ const { hasSecondarySidebar } = Astro.props;
 	</h1>
 
 	<div class="ml-auto"></div>
-	{hasSecondarySidebar &&
-		<SidebarToggle sidebarClass="mobile-right-sidebar-toggle" mobileMenu="primary" title="Toggle Sidebar" client:idle>
-			<EllipsisHorizontalCircleIcon className="w-6 h-6" />
-		</SidebarToggle>}
-	<SidebarToggle sidebarClass="mobile-left-sidebar-toggle" mobileMenu="secondary" title="Toggle Sidebar" client:idle>
+	{
+		hasSecondarySidebar && (
+			<SidebarToggle
+				sidebarClass="mobile-right-sidebar-toggle"
+				mobileMenu="primary"
+				title="Toggle Sidebar"
+				client:idle
+			>
+				<EllipsisHorizontalCircleIcon className="w-6 h-6" />
+			</SidebarToggle>
+		)
+	}
+	<SidebarToggle
+		sidebarClass="mobile-left-sidebar-toggle"
+		mobileMenu="secondary"
+		title="Toggle Sidebar"
+		client:idle
+	>
 		<Bars3Icon className="w-6 h-6" />
 	</SidebarToggle>
 </header>
-<div class="pt-24">
-
-</div>
+<div class="pt-24"></div>
 
 <ImageOverlay client:idle />

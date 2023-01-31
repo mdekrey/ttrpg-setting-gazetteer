@@ -1,5 +1,5 @@
 ---
-import ChevronRightIcon from '@heroicons/react/24/outline/ChevronRightIcon'
+import ChevronRightIcon from '@heroicons/react/24/outline/ChevronRightIcon';
 import sortBy from 'lodash/fp/sortBy';
 import { twMerge } from 'tailwind-merge';
 import { removeSubpageSegment } from '@/util/pathManipulation';
@@ -15,7 +15,6 @@ export type SectionEntry = {
 export type Props = {
 	entry: SectionEntry;
 	currentPageMatch: string;
-
 };
 
 const { entry, currentPageMatch } = Astro.props as Props;
@@ -27,48 +26,69 @@ const isWithin = currentPageMatch.startsWith(slug);
 const sortedChildren = sortBy(['sortOrder'], entry.children);
 ---
 
-<li class:list={["px-1", {"mb-4": entry.depth === 0 }]}>
-	{entry.header
-		? <Fragment>
-			<details open={entry.depth === 0 || isWithin}>
-				<summary class="cursor-pointer list-none px-1">
-					<h2 class="inline font-bold">
-						{entry.text}
-						<ChevronRightIcon className="inline align-baseline h-3 w-3 rotate-when-open" />
-					</h2>
-				</summary>
-				<ul class="ml-2">
-					{sortedChildren.map((entry) => (
-						<Astro.self entry={entry} currentPageMatch={currentPageMatch} />
-					))}
-				</ul>
-			</details>
-		</Fragment>
-		: <Fragment>
-			<a
-				class:list={['block px-1', { 'rounded-sm bg-blue-200 font-bold': isCurrent, 'border-b border-blue-200 font-bold': isWithin }]}
-				href={`${Astro.site?.pathname ?? '/'}${slug}/`}
-				aria-current={`${isCurrent ? 'page' : 'false'}`}
-				data-current-parent={`${
-					removeSubpageSegment(currentPageMatch).endsWith(removeSubpageSegment(slug))
-						? 'true'
-						: 'false'
-				}`}
-			>
-				{text}
-				{sortedChildren.length > 0
-				? <ChevronRightIcon className={twMerge('inline align-baseline h-3 w-3', isWithin && 'rotate-90', !isWithin && 'rotate-0')} />
-				: null}
-			</a>
+<li class:list={['px-1', { 'mb-4': entry.depth === 0 }]}>
+	{
+		entry.header ? (
+			<Fragment>
+				<details open={entry.depth === 0 || isWithin}>
+					<summary class="cursor-pointer list-none px-1">
+						<h2 class="inline font-bold">
+							{entry.text}
+							<ChevronRightIcon className="inline align-baseline h-3 w-3 rotate-when-open" />
+						</h2>
+					</summary>
+					<ul class="ml-2">
+						{sortedChildren.map((entry) => (
+							<Astro.self entry={entry} currentPageMatch={currentPageMatch} />
+						))}
+					</ul>
+				</details>
+			</Fragment>
+		) : (
+			<Fragment>
+				<a
+					class:list={[
+						'block px-1',
+						{
+							'rounded-sm bg-blue-200 font-bold': isCurrent,
+							'border-b border-blue-200 font-bold': isWithin,
+						},
+					]}
+					href={`${Astro.site?.pathname ?? '/'}${slug}/`}
+					aria-current={isCurrent ? 'page' : 'false'}
+					data-current-parent={`${
+						removeSubpageSegment(currentPageMatch).endsWith(
+							removeSubpageSegment(slug)
+						)
+							? 'true'
+							: 'false'
+					}`}
+				>
+					{text}
+					{sortedChildren.length > 0 ? (
+						<ChevronRightIcon
+							className={twMerge(
+								'inline align-baseline h-3 w-3',
+								isWithin && 'rotate-90',
+								!isWithin && 'rotate-0'
+							)}
+						/>
+					) : null}
+				</a>
 
-			{sortedChildren.length > 0 && isWithin
-				? <ul class="ml-1 pl-1 border-l-2 border-blue-200">
-					{sortedChildren.map((childEntry) => (
-						<Astro.self entry={childEntry} currentPageMatch={currentPageMatch} />
-					))}
-				</ul>
-				: null}
-		</Fragment>}
+				{sortedChildren.length > 0 && isWithin ? (
+					<ul class="ml-1 pl-1 border-l-2 border-blue-200">
+						{sortedChildren.map((childEntry) => (
+							<Astro.self
+								entry={childEntry}
+								currentPageMatch={currentPageMatch}
+							/>
+						))}
+					</ul>
+				) : null}
+			</Fragment>
+		)
+	}
 </li>
 <style>
 	.rotate-when-open {

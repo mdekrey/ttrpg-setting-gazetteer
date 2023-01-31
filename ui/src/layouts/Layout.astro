@@ -10,7 +10,10 @@ export interface Props {
 
 const { title, ogImage, ogDescription } = Astro.props;
 const currentPage = Astro.url.pathname;
-const canonicalURL = new URL(Astro.url.pathname.replace(/([^/])$/, '$1/'), Astro.site);
+const canonicalURL = new URL(
+	Astro.url.pathname.replace(/([^/])$/, '$1/'),
+	Astro.site
+);
 
 const gitHash = import.meta.env.GIT_HASH ?? 'HEAD';
 ---
@@ -28,33 +31,50 @@ const gitHash = import.meta.env.GIT_HASH ?? 'HEAD';
 		<meta property="og:title" content={title} />
 		<meta property="og:type" content="article" />
 		<meta property="og:url" content={canonicalURL} />
-		<meta property="og:locale" content="en">
-		{ogImage && <meta property="og:image" content={new URL(ogImage, Astro.site)} />}
-		{ogDescription &&
-			<meta
-				name="description"
-				property="og:description"
-				content={ogDescription}
-			/>}
+		<meta property="og:locale" content="en" />
+		{
+			ogImage && (
+				<meta property="og:image" content={new URL(ogImage, Astro.site)} />
+			)
+		}
+		{
+			ogDescription && (
+				<meta
+					name="description"
+					property="og:description"
+					content={ogDescription}
+				/>
+			)
+		}
 		<meta name="og:site_name" content="World Encyclopedia" />
 
-		{ogImage
-			? <meta name="twitter:card" content="summary_large_image"/>
-			: <meta name="twitter:card" content="summary"/>}
+		{
+			ogImage ? (
+				<meta name="twitter:card" content="summary_large_image" />
+			) : (
+				<meta name="twitter:card" content="summary" />
+			)
+		}
 		<meta name="twitter:site" content="World Encyclopedia" />
 		<meta property="twitter:title" content={title} />
-		{ogDescription &&
-			<meta
-				name="twitter:description"
-				content={ogDescription}
-			/>}
-		{ogImage && <meta property="twitter:image" content={new URL(ogImage, Astro.site)} />}
-
+		{
+			ogDescription && (
+				<meta name="twitter:description" content={ogDescription} />
+			)
+		}
+		{
+			ogImage && (
+				<meta property="twitter:image" content={new URL(ogImage, Astro.site)} />
+			)
+		}
 
 		<title>{title}</title>
 	</head>
 	<body class="theme-blue-dark">
-		<Header currentPage={currentPage} hasSecondarySidebar={Astro.slots.has('secondary-sidebar')} />
+		<Header
+			currentPage={currentPage}
+			hasSecondarySidebar={Astro.slots.has('secondary-sidebar')}
+		/>
 		<main class="layout">
 			<aside id="left-sidebar" class="sidebar">
 				<slot name="primary-sidebar">
