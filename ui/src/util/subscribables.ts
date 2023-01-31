@@ -37,7 +37,6 @@ export function createSubscribableList<T>() {
 			if (value.includes(newItem)) return value.indexOf(newItem);
 			const result = value.length;
 			value.push(newItem);
-			console.log(value);
 			subscribable.trigger();
 			return result;
 		},

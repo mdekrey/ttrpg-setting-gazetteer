@@ -17,13 +17,21 @@ export async function getContentEntries() {
 			let url = removeExtension(pathToFileURL(article.file).href.substring(contentUrlRoot.length + 1));
 			const parentUrl = url.split('/').slice(0, -1).join('/');
 			if (url.endsWith('/index')) url = url.substring(0, url.length - 6);
+
+			const headingsCount = article.getHeadings().length;
+			// hack to determine if I left out a header
+			const childrenLength = ((article.Content({}, {}, {}) as any)?.props?.children)?.length ?? 0;
+			const isArticle = headingsCount > 0;
+			if (childrenLength && !headingsCount) {
+				console.error(`Headings missing from ${article.file}`);
+			}
 			return ({
 				...article,
 				url,
 				parentUrl,
 				sortOrder: Number(article.frontmatter.sortOrder ?? 0),
-				header: article.getHeadings().length === 0,
-				isArticle: article.getHeadings().length > 0,
+				header: !isArticle,
+				isArticle,
 			});
 		})
 		.filter(article => !!article.frontmatter.title));

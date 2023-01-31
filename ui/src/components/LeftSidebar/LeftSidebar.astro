@@ -10,7 +10,7 @@ export interface Props {
 const { currentPage } = Astro.props;
 const currentPageMatch = removeLeadingSlash(removeTrailingSlash(currentPage));
 
-const nav = await getNavigation();
+const nav = await getNavigation(currentPageMatch);
 
 const sidebarSections = nav.reduce((collection, item) => {
 	let target = collection;
