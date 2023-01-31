@@ -20,7 +20,7 @@ jobs:
   build:
     runs-on: 'ubuntu-latest'
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
       with:
         lfs: true
 
@@ -74,7 +74,7 @@ jobs:
     runs-on: 'ubuntu-latest'
     needs: build
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
       with:
         lfs: true
     # Set the target Azure Kubernetes Service (AKS) cluster.
