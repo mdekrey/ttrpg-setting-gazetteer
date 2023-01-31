@@ -9,8 +9,12 @@
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
+    "lint": "npm run eslint && npm run prettier",
+    "lint:fix": "npm run eslint:fix && npm run prettier:fix",
     "eslint": "eslint \"src/**/*.{js,ts,tsx,md,mdx,astro}\"",
     "eslint:fix": "eslint \"src/**/*.{js,ts,tsx,md,mdx,astro}\" --fix",
+    "prettier": "prettier --list-different \"src/**/*.{js,ts,tsx,md,mdx,astro}\"",
+    "prettier:fix": "prettier --write \"src/**/*.{js,ts,tsx,md,mdx,astro}\"",
     "prepare": "cd .. && husky install ui/.husky"
   },
   "dependencies": {
@@ -41,7 +45,6 @@
     "eslint-plugin-astro": "^0.23.0",
     "eslint-plugin-jsx-a11y": "^6.7.1",
     "eslint-plugin-mdx": "^2.0.5",
-    "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-react": "^7.32.2",
     "husky": "^8.0.3",
     "lint-staged": "^13.1.0",

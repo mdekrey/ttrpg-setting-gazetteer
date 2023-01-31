@@ -17,7 +17,7 @@ ENV GIT_HASH=${GIT_HASH}
 ARG DOMAIN=https://setting.dekrey.net
 RUN npm run build -- --site $DOMAIN
 
-RUN npm run eslint
+RUN npm run lint
 
 FROM ghcr.io/mdekrey/static-files-server
 COPY --from=build-node /src/dist ./wwwroot

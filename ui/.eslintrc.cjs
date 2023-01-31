@@ -7,21 +7,17 @@ module.exports = {
 	},
 	settings: {
 		'mdx/code-blocks': true,
-		'react': {
-			'version': 'detect'
+		react: {
+			version: 'detect',
 		},
 	},
-	plugins: [
-		'@typescript-eslint',
-		'react'
-	],
+	plugins: ['@typescript-eslint', 'react'],
 	extends: [
 		// The order of these matter:
 		// eslint baseline
 		'eslint:recommended',
-		// formatting only
+		// disables eslint rules in favor of using prettier separately
 		'prettier',
-		'plugin:prettier/recommended',
 		// React-recommended, followed by tuning off needing to `import React from "react"`
 		'plugin:react/recommended',
 		'plugin:react/jsx-runtime',
@@ -33,8 +29,7 @@ module.exports = {
 		'plugin:astro/recommended',
 		'plugin:astro/jsx-a11y-strict',
 	],
-	rules: {
-	},
+	rules: {},
 	ignorePatterns: ['/*.js*', '/*.cjs*'],
 	overrides: [
 		{
@@ -55,5 +50,5 @@ module.exports = {
 				'react/jsx-no-undef': 'off',
 			},
 		},
-	]
+	],
 };
