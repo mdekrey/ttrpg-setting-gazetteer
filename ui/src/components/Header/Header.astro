@@ -14,7 +14,9 @@ export interface Props {
 const { hasSecondarySidebar } = Astro.props;
 ---
 
-<header class="fixed flex h-24 items-center gap-2 px-4 bg-white w-full">
+<header
+	class="fixed flex h-24 items-center gap-2 px-4 bg-white w-full print:hidden"
+>
 	<SkipToContent />
 	<h1>
 		<GlobeAsiaAustraliaIcon className="w-8 h-8 inline" />
@@ -43,6 +45,6 @@ const { hasSecondarySidebar } = Astro.props;
 		<Bars3Icon className="w-6 h-6" />
 	</SidebarToggle>
 </header>
-<div class="pt-24"></div>
+<div class="pt-24 print:hidden"></div>
 
 <ImageOverlay client:idle />
