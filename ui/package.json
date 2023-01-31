@@ -10,7 +10,8 @@
     "preview": "astro preview",
     "astro": "astro",
     "eslint": "eslint \"src/**/*.{js,ts,tsx,md,mdx,astro}\"",
-    "eslint:fix": "eslint \"src/**/*.{js,ts,tsx,md,mdx,astro}\" --fix"
+    "eslint:fix": "eslint \"src/**/*.{js,ts,tsx,md,mdx,astro}\" --fix",
+    "prepare": "cd .. && husky install ui/.husky"
   },
   "dependencies": {
     "@astrojs/image": "^0.13.0",
@@ -42,6 +43,8 @@
     "eslint-plugin-mdx": "^2.0.5",
     "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-react": "^7.32.2",
+    "husky": "^8.0.3",
+    "lint-staged": "^13.1.0",
     "prettier": "^2.8.3",
     "prettier-plugin-astro": "^0.8.0"
   }
