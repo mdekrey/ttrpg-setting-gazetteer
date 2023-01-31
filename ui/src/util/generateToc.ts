@@ -4,11 +4,11 @@ export interface TocItem extends MarkdownHeading {
 }
 
 function diveChildren(item: TocItem, depth: number): TocItem[] {
-	if (depth === 1) {
+	const lastChild = item.children[item.children.length - 1];
+	if (depth === 1 || !lastChild) {
 		return item.children;
 	} else {
-		// e.g., 2
-		return diveChildren(item.children[item.children.length - 1]!, depth - 1);
+		return diveChildren(lastChild, depth - 1);
 	}
 }
 
@@ -17,13 +17,13 @@ export function generateToc(headings: MarkdownHeading[], maxDepth = 3) {
 	const toc: Array<TocItem> = [];
 
 	for (const heading of headings) {
-		if (toc.length === 0) {
+		const lastItemInToc = toc[toc.length - 1];
+		if (!lastItemInToc) {
 			toc.push({
 				...heading,
 				children: [],
 			});
 		} else {
-			const lastItemInToc = toc[toc.length - 1]!;
 			if (heading.depth < lastItemInToc.depth) {
 				console.log(headings);
 				throw new Error(`Orphan heading found: ${heading.text}.`);

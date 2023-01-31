@@ -17,6 +17,6 @@ export function removeSubpageSegment(path: string) {
 }
 
 export function removeExtension(path: string) {
-	const {name, dir} = parse(path);
+	const { name, dir } = parse(path);
 	return `${dir}/${name}`;
 }

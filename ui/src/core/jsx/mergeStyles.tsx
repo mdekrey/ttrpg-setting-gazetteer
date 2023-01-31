@@ -1,5 +1,5 @@
 import { cloneElement } from 'react';
-import {twMerge} from 'tailwind-merge';
+import { twMerge } from 'tailwind-merge';
 import type { JsxMutator } from './pipeJsx';
 
 export function mergeStyles(template: JSX.Element): JsxMutator {
@@ -7,6 +7,9 @@ export function mergeStyles(template: JSX.Element): JsxMutator {
 		cloneElement(previous, {
 			...previous.props,
 			className: twMerge(template.props.className, previous.props.className),
-			style: { ...(template.props.style || {}), ...(previous.props.style || {}) },
+			style: {
+				...(template.props.style || {}),
+				...(previous.props.style || {}),
+			},
 		});
 }

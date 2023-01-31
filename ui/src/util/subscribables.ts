@@ -1,9 +1,8 @@
-
 export function createSubscribable() {
 	const subscribers: (() => void)[] = [];
 	return {
 		trigger() {
-			subscribers.forEach(subscription => subscription());
+			subscribers.forEach((subscription) => subscription());
 		},
 		subscribe(callback: () => void) {
 			subscribers.push(callback);
@@ -11,15 +10,17 @@ export function createSubscribable() {
 				const idx = subscribers.indexOf(callback);
 				if (idx >= 0) subscribers.splice(idx, 1);
 			};
-		}
+		},
 	};
 }
 
 export function createSubscribableValue<T>(initial: T) {
 	let value = initial;
-	let subscribable = createSubscribable();
+	const subscribable = createSubscribable();
 	return {
-		get() { return value; },
+		get() {
+			return value;
+		},
 		set(newValue: T) {
 			value = newValue;
 			subscribable.trigger();
@@ -29,10 +30,12 @@ export function createSubscribableValue<T>(initial: T) {
 }
 
 export function createSubscribableList<T>() {
-	let value: T[] = [];
-	let subscribable = createSubscribable();
+	const value: T[] = [];
+	const subscribable = createSubscribable();
 	return {
-		get(): readonly T[] { return value; },
+		get(): readonly T[] {
+			return value;
+		},
 		add(newItem: T) {
 			if (value.includes(newItem)) return value.indexOf(newItem);
 			const result = value.length;

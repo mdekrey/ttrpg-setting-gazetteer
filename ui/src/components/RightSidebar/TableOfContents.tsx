@@ -7,12 +7,24 @@ interface Props {
 	toc: TocItem[];
 }
 
-function TableOfContentsItem({ heading, currentHeadingSlug, onLinkClick }: { heading: TocItem; currentHeadingSlug: string; onLinkClick: React.MouseEventHandler<HTMLAnchorElement>; }) {
+function TableOfContentsItem({
+	heading,
+	currentHeadingSlug,
+	onLinkClick,
+}: {
+	heading: TocItem;
+	currentHeadingSlug: string;
+	onLinkClick: React.MouseEventHandler<HTMLAnchorElement>;
+}) {
 	const { slug, text, children } = heading;
 	return (
 		<li>
 			<a
-				className={currentHeadingSlug === slug ? 'bg-blue-200 font-bold block px-1' : 'block px-1'}
+				className={
+					currentHeadingSlug === slug
+						? 'bg-blue-200 font-bold block px-1'
+						: 'block px-1'
+				}
 				href={`#${slug}`}
 				onClick={onLinkClick}
 			>
@@ -21,7 +33,12 @@ function TableOfContentsItem({ heading, currentHeadingSlug, onLinkClick }: { hea
 			{children.length > 0 ? (
 				<ul className="ml-2 pt-1">
 					{children.map((heading) => (
-						<TableOfContentsItem key={heading.slug} heading={heading} currentHeadingSlug={currentHeadingSlug} onLinkClick={onLinkClick} />
+						<TableOfContentsItem
+							key={heading.slug}
+							heading={heading}
+							currentHeadingSlug={currentHeadingSlug}
+							onLinkClick={onLinkClick}
+						/>
 					))}
 				</ul>
 			) : null}
@@ -48,14 +65,21 @@ const TableOfContents = ({ toc }: Props) => {
 		const observerOptions: IntersectionObserverInit = {
 			// Negative top margin accounts for `scroll-margin`.
 			// Negative bottom margin means heading needs to be towards top of viewport to trigger intersection.
-			rootMargin: `${window.getComputedStyle(document.documentElement).getPropertyValue('scroll-padding-top')} 0% -66%`,
+			rootMargin: `${window
+				.getComputedStyle(document.documentElement)
+				.getPropertyValue('scroll-padding-top')} 0% -66%`,
 			threshold: 1,
 		};
 
-		const headingsObserver = new IntersectionObserver(setCurrent, observerOptions);
+		const headingsObserver = new IntersectionObserver(
+			setCurrent,
+			observerOptions
+		);
 
 		// Observe all the headings in the main page content.
-		document.querySelectorAll('article :is(h1,h2,h3)').forEach((h) => headingsObserver.observe(h));
+		document
+			.querySelectorAll('article :is(h1,h2,h3)')
+			.forEach((h) => headingsObserver.observe(h));
 
 		// Stop observing when the component is unmounted.
 		return () => headingsObserver.disconnect();
@@ -63,7 +87,9 @@ const TableOfContents = ({ toc }: Props) => {
 
 	const onLinkClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
 		mobileMenuState.set(null);
-		setCurrentHeading(e.currentTarget.getAttribute('href')!.replace('#', ''));
+		setCurrentHeading(
+			e.currentTarget.getAttribute('href')?.replace('#', '') ?? ''
+		);
 	};
 
 	return (
@@ -71,7 +97,12 @@ const TableOfContents = ({ toc }: Props) => {
 			<h2 className="mb-4 font-bold text-blue-dark">On this page...</h2>
 			<ul>
 				{toc.map((heading) => (
-					<TableOfContentsItem key={heading.slug} heading={heading} currentHeadingSlug={currentHeading} onLinkClick={onLinkClick} />
+					<TableOfContentsItem
+						key={heading.slug}
+						heading={heading}
+						currentHeadingSlug={currentHeading}
+						onLinkClick={onLinkClick}
+					/>
 				))}
 			</ul>
 		</>

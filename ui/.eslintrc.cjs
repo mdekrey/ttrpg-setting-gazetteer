@@ -6,14 +6,32 @@ module.exports = {
 		tsconfigRootDir: __dirname,
 	},
 	settings: {
+		'mdx/code-blocks': true,
+		'react': {
+			'version': 'detect'
+		},
 	},
-	plugins: ["@typescript-eslint"],
+	plugins: [
+		'@typescript-eslint',
+		'react'
+	],
 	extends: [
-		"prettier",
-		"plugin:prettier/recommended",
-		"plugin:@typescript-eslint/recommended",
-		"plugin:astro/recommended",
-		"plugin:astro/jsx-a11y-strict",
+		// The order of these matter:
+		// eslint baseline
+		'eslint:recommended',
+		// formatting only
+		'prettier',
+		'plugin:prettier/recommended',
+		// React-recommended, followed by tuning off needing to `import React from "react"`
+		'plugin:react/recommended',
+		'plugin:react/jsx-runtime',
+		// Recommended typescript changes, which removes some "no-undef" checks that TS handles
+		'plugin:@typescript-eslint/recommended',
+		// MDX, which requires react previously
+		'plugin:mdx/recommended',
+		// Astro, which builds on the MDX and React settings
+		'plugin:astro/recommended',
+		'plugin:astro/jsx-a11y-strict',
 	],
 	rules: {
 	},
@@ -21,20 +39,20 @@ module.exports = {
 	overrides: [
 		{
 			// Define the configuration for `.astro` file.
-			files: ["*.astro"],
+			files: ['*.astro'],
 			// Allows Astro components to be parsed.
-			parser: "astro-eslint-parser",
+			parser: 'astro-eslint-parser',
 			// Parse the script in `.astro` as TypeScript by adding the following configuration.
 			// It's the setting you need when using TypeScript.
 			parserOptions: {
-				parser: "@typescript-eslint/parser",
-				extraFileExtensions: [".astro"],
+				parser: '@typescript-eslint/parser',
+				extraFileExtensions: ['.astro'],
 			},
 			rules: {
-				// override/add rules settings here, such as:
-				// "astro/no-set-html-directive": "error"
-				"@typescript-eslint/no-unused-vars": "off",
-				// "no-unused-vars": "error"
+				// These rules don't apply to astro files:
+				'react/no-unknown-property': 'off',
+				'react/jsx-key': 'off',
+				'react/jsx-no-undef': 'off',
 			},
 		},
 	]

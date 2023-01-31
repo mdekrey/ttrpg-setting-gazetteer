@@ -26,7 +26,10 @@ const headerLink: JsxMutator = (el) => {
 };
 
 export const headerTemplate = mergeStyles(
-	<i className={twMerge('font-header font-bold', 'mt-4 first:mt-0')} style={{ pageBreakAfter: 'avoid' }} />
+	<i
+		className={twMerge('font-header font-bold', 'mt-4 first:mt-0')}
+		style={{ pageBreakAfter: 'avoid' }}
+	/>
 );
 export const rowTemplate = mergeStyles(
 	<tr className="even:bg-gradient-to-r from-tan-fading to-white odd:bg-tan-accent border-b-2 border-white font-info" />
@@ -87,9 +90,20 @@ export const components: ComponentProps<typeof MDXProvider>['components'] = {
 			{children}
 		</p>
 	),
-	table: ({ children, className, ...props }: JSX.IntrinsicElements['table']) => (
-		<div className="overflow-auto print:overflow-visible my-2" style={{ breakInside: 'avoid' }}>
-			<table className={twMerge('w-full border-collapse', className)} style={{ breakInside: 'avoid' }} {...props}>
+	table: ({
+		children,
+		className,
+		...props
+	}: JSX.IntrinsicElements['table']) => (
+		<div
+			className="overflow-auto print:overflow-visible my-2"
+			style={{ breakInside: 'avoid' }}
+		>
+			<table
+				className={twMerge('w-full border-collapse', className)}
+				style={{ breakInside: 'avoid' }}
+				{...props}
+			>
 				{children}
 			</table>
 		</div>
@@ -99,7 +113,11 @@ export const components: ComponentProps<typeof MDXProvider>['components'] = {
 			{children}
 		</a>
 	),
-	thead: ({ children, className, ...props }: JSX.IntrinsicElements['thead']) => (
+	thead: ({
+		children,
+		className,
+		...props
+	}: JSX.IntrinsicElements['thead']) => (
 		<thead className={twMerge('bg-theme text-white', className)} {...props}>
 			{children}
 		</thead>
@@ -107,46 +125,76 @@ export const components: ComponentProps<typeof MDXProvider>['components'] = {
 	tbody: ({ children, ...props }: JSX.IntrinsicElements['tbody']) => (
 		<tbody {...props}>{pipeJsx(<>{children}</>, recurse(rowTemplate))}</tbody>
 	),
-	td: ({ children, className, isHeader, ...props }: JSX.IntrinsicElements['td'] & { isHeader?: boolean }) => (
+	td: ({
+		children,
+		className,
+		...props
+	}: JSX.IntrinsicElements['td'] & { isHeader?: boolean }) => (
 		<td className={twMerge('px-2 font-bold align-top', className)} {...props}>
 			{children}
 		</td>
 	),
-	th: ({ children, className, isHeader, ...props }: JSX.IntrinsicElements['th'] & { isHeader?: boolean }) => (
-		<th className={twMerge('px-2 font-bold align-bottom', className)} {...props}>
+	th: ({
+		children,
+		className,
+		...props
+	}: JSX.IntrinsicElements['th'] & { isHeader?: boolean }) => (
+		<th
+			className={twMerge('px-2 font-bold align-bottom', className)}
+			{...props}
+		>
 			{children}
 		</th>
 	),
-	ul: ({ children, className, ordered, ...props }: JSX.IntrinsicElements['ul'] & { ordered?: boolean }) => (
+	ul: ({
+		children,
+		className,
+		...props
+	}: JSX.IntrinsicElements['ul'] & { ordered?: boolean }) => (
 		<ul className={twMerge('list-disc ml-6', className)} {...props}>
 			{children}
 		</ul>
 	),
-	ol: ({ children, className, ordered, ...props }: JSX.IntrinsicElements['ol'] & { ordered?: boolean }) => (
+	ol: ({
+		children,
+		className,
+		...props
+	}: JSX.IntrinsicElements['ol'] & { ordered?: boolean }) => (
 		<ul className={twMerge('list-decimal ml-6', className)} {...props}>
 			{children}
 		</ul>
 	),
-	li: ({ children, className, ordered, ...props }: JSX.IntrinsicElements['li'] & { ordered?: boolean }) => (
+	li: ({
+		children,
+		className,
+		...props
+	}: JSX.IntrinsicElements['li'] & { ordered?: boolean }) => (
 		<li className={twMerge('my-1', className)} {...props}>
 			{children}
 		</li>
 	),
 	hr: ({ className, ...props }: JSX.IntrinsicElements['hr']) => (
-		<hr className={twMerge('border-0 my-1.5', className)} {...(props as any)} />
+		<hr className={twMerge('border-0 my-1.5', className)} {...props} />
 	),
-	blockquote: ({ children, className, ...props }: JSX.IntrinsicElements['blockquote']) => (
+	blockquote: ({
+		children,
+		className,
+		...props
+	}: JSX.IntrinsicElements['blockquote']) => (
 		<blockquote
-			className={twMerge('bg-gradient-to-r from-tan-fading p-2 my-4', className)}
+			className={twMerge(
+				'bg-gradient-to-r from-tan-fading p-2 my-4',
+				className
+			)}
 			style={{ pageBreakInside: 'avoid' }}
-			{...props}>
+			{...props}
+		>
 			{pipeJsx(<>{children}</>, recurse(infoFontTemplate))}
 		</blockquote>
 	),
-	img: ({ src, alt, ...props }: JSX.IntrinsicElements['img']) =>
-		(
-			<img src={src} alt={alt} {...props} />
-		),
+	img: ({ src, alt, ...props }: JSX.IntrinsicElements['img']) => (
+		<img src={src} alt={alt} {...props} />
+	),
 	strong: ({ children, ...props }: JSX.IntrinsicElements['strong']) => (
 		<span className="font-bold" {...props}>
 			{children}
