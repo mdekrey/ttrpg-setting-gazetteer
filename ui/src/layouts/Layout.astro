@@ -6,9 +6,10 @@ export interface Props {
 	title: string;
 	ogImage?: string;
 	ogDescription?: string;
+	hasSecondarySidebar: boolean;
 }
 
-const { title, ogImage, ogDescription } = Astro.props;
+const { title, ogImage, ogDescription, hasSecondarySidebar } = Astro.props;
 const currentPage = Astro.url.pathname;
 const canonicalURL = new URL(
 	Astro.url.pathname.replace(/([^/])$/, '$1/'),
@@ -71,10 +72,7 @@ const gitHash = import.meta.env.GIT_HASH ?? 'HEAD';
 		<title>{title}</title>
 	</head>
 	<body class="theme-blue-dark">
-		<Header
-			currentPage={currentPage}
-			hasSecondarySidebar={Astro.slots.has('secondary-sidebar')}
-		/>
+		<Header hasSecondarySidebar={hasSecondarySidebar} />
 		<main class="layout">
 			<aside id="left-sidebar" class="sidebar">
 				<slot name="primary-sidebar">
@@ -82,7 +80,7 @@ const gitHash = import.meta.env.GIT_HASH ?? 'HEAD';
 				</slot>
 			</aside>
 			<aside id="right-sidebar" class="sidebar">
-				<slot name="secondary-sidebar" />
+				{hasSecondarySidebar && <slot name="secondary-sidebar" />}
 			</aside>
 			<div id="main-content" class="main-column">
 				<slot name="pre-article" />

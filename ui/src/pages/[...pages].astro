@@ -38,17 +38,18 @@ export async function getStaticPaths() {
 const { Component, title, headings, ogImage, ogDescription } = Astro.props;
 ---
 
-<Layout title={title} ogImage={ogImage} ogDescription={ogDescription}>
-	{
-		/* Yes, this is intended to be >1 - we don't need an "On this page" section for only one heading. */
-	}
-	{
-		headings.length > 1 && (
-			<RightSidebar slot="secondary-sidebar">
-				<TableOfContents toc={generateToc(headings)} slot="nav" client:idle />
-			</RightSidebar>
-		)
-	}
+{
+	/* Yes, this is intended to be >1 - we don't need an "On this page" section for only one heading. */
+}
+<Layout
+	title={title}
+	ogImage={ogImage}
+	ogDescription={ogDescription}
+	hasSecondarySidebar={headings.length > 1}
+>
+	<RightSidebar slot="secondary-sidebar">
+		<TableOfContents toc={generateToc(headings)} slot="nav" client:idle />
+	</RightSidebar>
 	<main>
 		<Component components={components} />
 	</main>
