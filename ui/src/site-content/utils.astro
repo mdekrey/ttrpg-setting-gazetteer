@@ -10,7 +10,7 @@ export const contentFsRoot = path.join(processSrcRoot, 'site-content');
 export const contentUrlRoot = pathToFileURL(contentFsRoot).href;
 
 export async function getContentEntries() {
-	const articles = await Astro.glob('/site-content/**/*.mdx');
+	const articles = await Astro.glob('./**/*.mdx');
 
 	const result = sortBy(
 		['url', 'isArticle'],

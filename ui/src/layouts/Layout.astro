@@ -6,7 +6,7 @@ export interface Props {
 	title: string;
 	ogImage?: string;
 	ogDescription?: string;
-	hasSecondarySidebar: boolean;
+	hasSecondarySidebar?: boolean;
 }
 
 const { title, ogImage, ogDescription, hasSecondarySidebar } = Astro.props;
@@ -72,7 +72,7 @@ const gitHash = import.meta.env.GIT_HASH ?? 'HEAD';
 		<title>{title}</title>
 	</head>
 	<body class="theme-blue-dark">
-		<Header hasSecondarySidebar={hasSecondarySidebar} />
+		<Header hasSecondarySidebar={hasSecondarySidebar ?? false} />
 		<main class="layout">
 			<aside id="left-sidebar" class="sidebar">
 				<slot name="primary-sidebar">

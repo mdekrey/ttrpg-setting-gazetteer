@@ -21,7 +21,6 @@ RUN npm run lint
 
 WORKDIR /src/dist
 
-ARG GIT_HASH=HEAD
 RUN echo $GIT_HASH > ./git-version.txt
 
 RUN find . -type f -exec gzip -k "{}" \; -exec brotli -k "{}" \;
