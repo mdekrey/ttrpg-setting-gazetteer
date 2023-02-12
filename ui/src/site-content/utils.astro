@@ -22,11 +22,19 @@ export async function getContentEntries() {
 				const parentUrl = url.split('/').slice(0, -1).join('/');
 				if (url.endsWith('/index')) url = url.substring(0, url.length - 6);
 
+				const headings = article.getHeadings();
 				const headingsCount = article.getHeadings().length;
 				// hack to determine if I left out a header
 				const isArticle = headingsCount > 0;
+
+				const frontmatter: (typeof article)['frontmatter'] = {
+					...article.frontmatter,
+					title: article.frontmatter.title ?? headings[0]?.text,
+				};
+
 				return {
 					...article,
+					frontmatter,
 					url,
 					parentUrl,
 					sortOrder: Number(article.frontmatter.sortOrder ?? 0),
