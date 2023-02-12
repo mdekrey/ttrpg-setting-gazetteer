@@ -14,5 +14,8 @@ import image from '@astrojs/image';
 
 // https://astro.build/config
 export default defineConfig({
+	markdown: {
+		syntaxHighlight: false,
+	},
 	integrations: [tailwind(), react(), mdx(), image()],
 });
